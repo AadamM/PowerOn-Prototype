@@ -22,22 +22,18 @@ public class BranchSpawner : MonoBehaviour {
 	}
 
     private void GrowBranchesOnClick() {
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetMouseButtonDown(0)) {
             mouseRay = mainCam.ScreenPointToRay(Input.mousePosition);
 
             // Used code from this forum:
             // https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
-            if (Physics.Raycast(mouseRay, out mouseRayTarget))
-            {
+            if (Physics.Raycast(mouseRay, out mouseRayTarget)) {
                 float branchSpawnOffset = 0f;
 
-                if (mouseRayTarget.point.x < 0)
-                {
+                if (mouseRayTarget.point.x < 0) {
                     branchSpawnOffset = -7.5f;
                 }
-                else
-                {
+                else {
                     branchSpawnOffset = 7.5f;
                 }
 
@@ -47,14 +43,11 @@ public class BranchSpawner : MonoBehaviour {
 
                 BranchScript currentBranchScript = currentBranch.GetComponent<BranchScript>();
 
-                if (currentBranchScript != null)
-                {
-                    if (mouseRayTarget.collider.name == "Tree Left")
-                    {
+                if (currentBranchScript != null) {
+                    if (mouseRayTarget.collider.name == "Tree Left") {
                         currentBranchScript.treeLocation = Direction.Left;
                     }
-                    else
-                    {
+                    else {
                         currentBranchScript.treeLocation = Direction.Right;
                     }
                 }
