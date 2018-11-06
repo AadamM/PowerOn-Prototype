@@ -24,9 +24,6 @@ public class BranchSpawner : MonoBehaviour {
             // Used code from this forum:
             // https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
             if (Physics.Raycast(mouseRay, out mouseRayTarget)) {
-                Debug.Log(mouseRayTarget.collider.name);
-                Debug.Log(mouseRayTarget.point);
-
                 float branchSpawnOffset = 0f;
 
                 if (mouseRayTarget.point.x < 0) {
@@ -44,12 +41,7 @@ public class BranchSpawner : MonoBehaviour {
                         currentBranchScript.leftBranch = false;
                     }
                 }
-                //Vector3 originalScale = currentBranch.GetComponentInChildren<Transform>().localScale;
             }
-
-            /*if (Input.GetMouseButton(0) && (currentBranch!=null)) {
-                currentBranch.GetComponentInChildren<Transform>().localScale *= new Vector3(.1f, 0f, 0f);
-            }*/
         }
 	}
 }
