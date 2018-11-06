@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BranchScript : MonoBehaviour {
-
     private Vector3 startScale;
     private Transform branchForm;
     private bool isClicked;
@@ -12,8 +11,6 @@ public class BranchScript : MonoBehaviour {
     public float speed;
     public float xScale;
     public Vector3 maxScale;
-
-    //public bool isClicked;
 
 	// Use this for initialization
 	void Start () {
