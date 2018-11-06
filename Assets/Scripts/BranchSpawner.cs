@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BranchSpawnner : MonoBehaviour {
+public class BranchSpawner : MonoBehaviour {
 
     private Ray mouseRay;
     private RaycastHit mouseRayTarget;
