@@ -8,7 +8,7 @@ public class BranchScript : MonoBehaviour {
     private Transform branchForm;
     private bool isClicked;
 
-    public bool leftBranch;
+    public BranchSpawner.Direction treeLocation;
     public float speed;
     public float xScale;
     public Vector3 maxScale;
@@ -21,7 +21,7 @@ public class BranchScript : MonoBehaviour {
         branchForm = GetComponentInChildren<Transform>();
         branchForm.localScale = new Vector3(xScale, 1f, 1f);
 
-        if (leftBranch) {
+        if (treeLocation == BranchSpawner.Direction.Left) {
             branchForm.Translate(xScale/2, 0f, 0f);
         } else {
             branchForm.Translate(-xScale/2, 0f, 0f);
@@ -33,7 +33,7 @@ public class BranchScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if ((branchForm.localScale.x < maxScale.x) && Input.GetMouseButton(0) && isClicked) {
-            if (leftBranch) {
+            if (treeLocation == BranchSpawner.Direction.Left) {
                 branchForm.Translate(5f*speed, 0f, 0f);
             } else {
                 branchForm.Translate(-5f*speed, 0f, 0f);

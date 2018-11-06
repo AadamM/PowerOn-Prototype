@@ -10,6 +10,7 @@ public class BranchSpawner : MonoBehaviour {
 
     public Camera mainCam;
     public GameObject branch;
+    public enum Direction { Left, Right };
 
 	// Use this for initialization
 	void Start () {
@@ -36,9 +37,9 @@ public class BranchSpawner : MonoBehaviour {
                 BranchScript currentBranchScript = currentBranch.GetComponent<BranchScript>();
                 if (currentBranchScript != null) {
                     if (mouseRayTarget.collider.name == "Tree Left") {
-                        currentBranchScript.leftBranch = true;
+                        currentBranchScript.treeLocation = Direction.Left;
                     } else {
-                        currentBranchScript.leftBranch = false;
+                        currentBranchScript.treeLocation = Direction.Right;
                     }
                 }
             }
