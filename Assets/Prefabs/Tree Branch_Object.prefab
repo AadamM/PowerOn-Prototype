@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeLocation: 0
-  speed: 0.15
+  speed: 0.025
   xScale: 0.1
   maxScale: {x: 1.5, y: 0}
 --- !u!212 &212496889283704962

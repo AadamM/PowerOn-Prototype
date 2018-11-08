@@ -7,9 +7,14 @@ public class BranchSpawner : MonoBehaviour {
     private RaycastHit mouseRayTarget;
     private GameObject currentBranch;
 
+    public float sap;
     public Camera mainCam;
     public GameObject branch;
     public enum Direction { Left, Right };
+
+    public bool HasSap {
+        get { return sap > 0; }
+    }
 
     // Update is called once per frame
     void Update() {
@@ -17,9 +22,7 @@ public class BranchSpawner : MonoBehaviour {
 	}
 
     private void GrowBranchesOnClick() {
-        if (Input.GetMouseButtonDown(0)) {
-            //mouseRay = mainCam.ScreenPointToRay(Input.mousePosition);
-
+        if (Input.GetMouseButtonDown(0) && HasSap) {
             RaycastHit2D mouseRayTarget = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             // Used code from this forum:
