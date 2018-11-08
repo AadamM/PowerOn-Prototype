@@ -10,6 +10,7 @@ public class BranchSpawner : MonoBehaviour {
     private Slider _sapBar;
     private float _sap;
 
+    public float maxSap;
     public Camera mainCam;
     public GameObject branch;
     public enum Direction { Left, Right };
@@ -27,8 +28,10 @@ public class BranchSpawner : MonoBehaviour {
     }
 
     private void Start() {
-        _sap = 100;
+        _sap = maxSap;
         _sapBar = GameObject.Find("Sap Bar").GetComponent<Slider>();
+        _sapBar.maxValue = maxSap;
+        _sapBar.value = maxSap;
     }
 
     // Update is called once per frame

@@ -807,7 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beff9ed141579184e93a121fb83213e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sap: 100
+  maxSap: 150
   mainCam: {fileID: 534669904}
   branch: {fileID: 1227519773973970, guid: c4e4e4737c129434080040b4e6a17e8e, type: 2}
 --- !u!4 &1619868035
