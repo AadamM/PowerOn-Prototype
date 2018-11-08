@@ -1,19 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BranchSpawner : MonoBehaviour {
     private Ray2D mouseRay;
     private RaycastHit mouseRayTarget;
     private GameObject currentBranch;
+    private Slider _sapBar;
+    private float _sap;
 
-    public float sap;
     public Camera mainCam;
     public GameObject branch;
     public enum Direction { Left, Right };
 
     public bool HasSap {
-        get { return sap > 0; }
+        get { return _sap > 0; }
+    }
+
+    public float Sap {
+        get { return _sap;  }
+        set {
+            _sap = value;
+            _sapBar.value = _sap;
+        }
+    }
+
+    private void Start() {
+        _sap = 100;
+        _sapBar = GameObject.Find("Sap Bar").GetComponent<Slider>();
     }
 
     // Update is called once per frame

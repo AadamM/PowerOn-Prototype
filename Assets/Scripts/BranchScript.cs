@@ -36,7 +36,7 @@ public class BranchScript : MonoBehaviour {
                 branchTransform.Translate(new Vector2(-2.5f*speed, 0f));
             }
             branchTransform.localScale += new Vector3(speed, 0f, 0f);
-            spawner.sap -= 1;
+            spawner.Sap -= 1;
         }
 
         if (Input.GetMouseButtonUp(0)) {
