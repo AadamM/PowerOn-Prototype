@@ -40,7 +40,7 @@ public class BranchSpawner : MonoBehaviour {
 	}
 
     private void GrowBranchesOnClick() {
-        if (Input.GetMouseButtonDown(0) && HasSap) {
+        if (Input.GetMouseButtonDown(0) && this.HasSap) {
             RaycastHit2D mouseRayTarget = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             // Used code from this forum:
