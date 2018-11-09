@@ -1,15 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BranchSpawner : MonoBehaviour {
     private Ray2D mouseRay;
     private RaycastHit mouseRayTarget;
     private GameObject currentBranch;
+    private Slider sapUI;
+    private float _sap;
 
+    public float maxSap;
     public Camera mainCam;
     public GameObject branch;
     public enum Direction { Left, Right };
+
+    public bool HasSap {
+        get { return _sap > 0; }
+    }
+
+    public float Sap {
+        get { return _sap;  }
+        set {
+            _sap = value;
+            sapUI.value = _sap;
+        }
+    }
+
+    private void Start() {
+        _sap = maxSap;
+        sapUI = GameObject.Find("Sap Bar").GetComponent<Slider>();
+        sapUI.maxValue = maxSap;
+        sapUI.value = maxSap;
+    }
 
     // Update is called once per frame
     void Update() {
@@ -17,9 +40,7 @@ public class BranchSpawner : MonoBehaviour {
 	}
 
     private void GrowBranchesOnClick() {
-        if (Input.GetMouseButtonDown(0)) {
-            //mouseRay = mainCam.ScreenPointToRay(Input.mousePosition);
-
+        if (Input.GetMouseButtonDown(0) && this.HasSap) {
             RaycastHit2D mouseRayTarget = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             // Used code from this forum:
