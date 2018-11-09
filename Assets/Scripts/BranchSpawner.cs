@@ -32,7 +32,7 @@ public class BranchSpawner : MonoBehaviour
     {
         _sapUI = GameObject.Find("Sap Bar").GetComponent<Slider>();
         _sapUI.maxValue = maxSap;
-        Sap = maxSap;
+        this.Sap = maxSap;
     }
 
     // Update is called once per frame
