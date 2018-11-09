@@ -7,7 +7,7 @@ public class BranchSpawner : MonoBehaviour {
     private Ray2D mouseRay;
     private RaycastHit mouseRayTarget;
     private GameObject currentBranch;
-    private Slider _sapBar;
+    private Slider sapUI;
     private float _sap;
 
     public float maxSap;
@@ -23,15 +23,15 @@ public class BranchSpawner : MonoBehaviour {
         get { return _sap;  }
         set {
             _sap = value;
-            _sapBar.value = _sap;
+            sapUI.value = _sap;
         }
     }
 
     private void Start() {
         _sap = maxSap;
-        _sapBar = GameObject.Find("Sap Bar").GetComponent<Slider>();
-        _sapBar.maxValue = maxSap;
-        _sapBar.value = maxSap;
+        sapUI = GameObject.Find("Sap Bar").GetComponent<Slider>();
+        sapUI.maxValue = maxSap;
+        sapUI.value = maxSap;
     }
 
     // Update is called once per frame
