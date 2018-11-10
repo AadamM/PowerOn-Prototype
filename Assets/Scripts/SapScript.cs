@@ -13,7 +13,7 @@ public class SapScript : MonoBehaviour
         _spawner = GameObject.Find("Branch Spawner").GetComponent<BranchSpawner>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) 
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
         RefillSap();
         Destroy(gameObject);
