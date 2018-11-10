@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Use this for initialization
-    private void Start ()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.freezeRotation = true;
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Update is called once per frame
-    private void Update ()
+    private void Update()
     {
         HandleHorizontalMovement();
         HandleJumping();
@@ -41,7 +41,6 @@ public class PlayerMovement : MonoBehaviour {
 
     private void HandleHorizontalMovement()
     {
-
         var newVelocity = _rigidbody.velocity;
         newVelocity.x = HorizontalMovement * speed;
         _rigidbody.velocity = newVelocity;

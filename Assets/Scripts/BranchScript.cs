@@ -12,7 +12,7 @@ public class BranchScript : MonoBehaviour
     public float xScale;
     public Vector2 maxScale;
 
-	private void Start () 
+	private void Start() 
     {
         _spawner = GameObject.Find("Branch Spawner").GetComponent<BranchSpawner>();
         _transform = GetComponentInChildren<Transform>();
@@ -28,7 +28,7 @@ public class BranchScript : MonoBehaviour
         }
 	}
 	
-	private void Update () 
+	private void Update() 
     {
         if (_transform.localScale.x < maxScale.x && _spawner.HasSap) 
         {
