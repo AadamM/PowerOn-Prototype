@@ -39,7 +39,7 @@ public class BranchSpawner : MonoBehaviour
     private void Update() 
     {
         GrowBranchesOnClick();
-	}
+    }
 
     private void GrowBranchesOnClick() 
     {
