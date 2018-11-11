@@ -12,11 +12,11 @@ public class BranchScript : MonoBehaviour
     public float xScale;
     public Vector2 maxScale;
 
-	private void Start () 
+	private void Start() 
     {
         _spawner = GameObject.Find("Branch Spawner").GetComponent<BranchSpawner>();
         _transform = GetComponentInChildren<Transform>();
-        _transform.localScale = new Vector2(xScale, 1f);
+        _transform.localScale = new Vector2(xScale, 0.75f);
 
         if (treeLocation == BranchSpawner.Direction.Left) 
         {
@@ -28,17 +28,17 @@ public class BranchScript : MonoBehaviour
         }
 	}
 	
-	private void Update () 
+	private void Update() 
     {
         if (_transform.localScale.x < maxScale.x && _spawner.HasSap) 
         {
             if (treeLocation == BranchSpawner.Direction.Left) 
             {
-                _transform.Translate(new Vector2(2.5f*speed, 0f));
+                _transform.Translate(new Vector2(.5f*speed, 0f));
             } 
             else 
             {
-                _transform.Translate(new Vector2(-2.5f*speed, 0f));
+                _transform.Translate(new Vector2(-.5f*speed, 0f));
             }
             _transform.localScale += new Vector3(speed, 0f, 0f);
             _spawner.Sap -= 1;
