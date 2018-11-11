@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d101946b72641d394d21d0c59a1741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refillPercentage: 0.3
+  sapRefillPercentage: 0.3
 --- !u!212 &212891154341585034
 SpriteRenderer:
   m_ObjectHideFlags: 1
