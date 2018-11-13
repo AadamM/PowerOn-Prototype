@@ -38,10 +38,10 @@ public class BranchSpawner : MonoBehaviour
     // Update is called once per frame
     private void Update() 
     {
-        HandleMouseClicks();
+        HandleLeftClicks();
     }
 
-    private void HandleMouseClicks() 
+    private void HandleLeftClicks() 
     {
         if (Input.GetMouseButtonDown(0) && this.HasSap) 
         {
@@ -56,7 +56,8 @@ public class BranchSpawner : MonoBehaviour
                 }
                 else if (mouseRayTarget.collider.tag == "Branch")
                 {
-                    Debug.Log("Clicked on a branch!");
+                    var branchScript = mouseRayTarget.collider.GetComponent<BranchScript>();
+                    branchScript.Selected = true;
                 }
             }           
         }
