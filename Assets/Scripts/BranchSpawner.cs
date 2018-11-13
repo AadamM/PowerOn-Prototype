@@ -13,6 +13,8 @@ public class BranchSpawner : MonoBehaviour
     public GameObject branchObj;
     public enum Direction { Left, Right };
 
+    #region Public Properties
+
     public bool HasSap 
     {
         get { return _sap > 0; }
@@ -28,6 +30,8 @@ public class BranchSpawner : MonoBehaviour
         }
     }
 
+    #endregion Public Properties
+
     private void Start() 
     {
         _sapUI = GameObject.Find("Sap Bar").GetComponent<Slider>();
@@ -41,6 +45,8 @@ public class BranchSpawner : MonoBehaviour
         HandleLeftClicks();
     }
 
+    #region Private Helper Functions
+
     private void HandleLeftClicks() 
     {
         if (Input.GetMouseButtonDown(0) && this.HasSap) 
@@ -51,16 +57,22 @@ public class BranchSpawner : MonoBehaviour
             {
                 if (mouseRayTarget.collider.tag == "Tree")
                 {
-                    var spawnLocation = CalculateBranchSpawnLocation(mouseRayTarget);
-                    SpawnBranch(spawnLocation);
+                    GrowNewBranch(mouseRayTarget);
                 }
                 else if (mouseRayTarget.collider.tag == "Branch")
                 {
-                    var branchScript = mouseRayTarget.collider.GetComponent<BranchScript>();
-                    branchScript.IsGrowing = true;
+                    GrowExistingBranch(mouseRayTarget);
                 }
             }           
         }
+    }
+
+    #region Growing New Branches (Helper Functions)
+
+    private void GrowNewBranch(RaycastHit2D mouseRayTarget)
+    {
+        var spawnLocation = CalculateBranchSpawnLocation(mouseRayTarget);
+        SpawnBranch(spawnLocation);
     }
 
     private Vector2 CalculateBranchSpawnLocation(RaycastHit2D mouseRayTarget)
@@ -94,6 +106,20 @@ public class BranchSpawner : MonoBehaviour
         {
             branchScript.treeLocation = Direction.Right;
         }
-        branchScript.Selected = true;
+        branchScript.IsGrowing = true;
     }
+
+    #endregion Growing New Branches
+
+    #region Growing Existing Branches (Helper Functions)
+
+    private void GrowExistingBranch(RaycastHit2D mouseRayTarget)
+    {
+        var branchScript = mouseRayTarget.collider.GetComponent<BranchScript>();
+        branchScript.IsGrowing = true;
+    }
+
+    #endregion Growing Existing Branches
+
+    #endregion Private Helper Functions
 }

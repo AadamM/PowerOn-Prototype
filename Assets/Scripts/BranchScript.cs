@@ -14,13 +14,17 @@ public class BranchScript : MonoBehaviour
 
     private bool _isGrowing;
 
+    #region Public Properties
+
     public bool IsGrowing
     {
         get { return _isGrowing; }
         set { _isGrowing = value; }
     }
 
-	private void Start() 
+    #endregion Public Properties
+
+    private void Start() 
     {
         _spawner = GameObject.Find("Branch Spawner").GetComponent<BranchSpawner>();
         _transform = GetComponentInChildren<Transform>();
@@ -38,23 +42,33 @@ public class BranchScript : MonoBehaviour
 	
 	private void Update() 
     {
-        if (_transform.localScale.x < maxScale.x && _spawner.HasSap && this.IsGrowing) 
+        GrowBranchUntilMaxScale();
+	}
+
+    #region Private Helper Functions
+
+    private void GrowBranchUntilMaxScale()
+    {
+        if (_transform.localScale.x < maxScale.x && _spawner.HasSap && this.IsGrowing)
         {
-            if (treeLocation == BranchSpawner.Direction.Left) 
+            if (treeLocation == BranchSpawner.Direction.Left)
             {
-                _transform.Translate(new Vector2(.5f*speed, 0f));
-            } 
-            else 
+                _transform.Translate(new Vector2(.5f * speed, 0f));
+            }
+            else
             {
-                _transform.Translate(new Vector2(-.5f*speed, 0f));
+                _transform.Translate(new Vector2(-.5f * speed, 0f));
             }
             _transform.localScale += new Vector3(speed, 0f, 0f);
             _spawner.Sap -= 1;
         }
 
-        if (Input.GetMouseButtonUp(0)) 
+        if (Input.GetMouseButtonUp(0))
         {
             this.IsGrowing = false;
         }
-	}
+    }
+
+    #endregion
+
 }
