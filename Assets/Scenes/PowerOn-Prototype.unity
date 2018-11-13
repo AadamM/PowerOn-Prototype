@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 56393622}
   m_Layer: 0
   m_Name: Tree Right_2D
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -818,7 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSap: 300
   mainCam: {fileID: 534669904}
-  branch: {fileID: 1108830822210580, guid: f6c2895167782554bb6ef68a1f149334, type: 2}
+  branchObj: {fileID: 1108830822210580, guid: f6c2895167782554bb6ef68a1f149334, type: 2}
 --- !u!4 &1619868035
 Transform:
   m_ObjectHideFlags: 0
@@ -1061,7 +1061,7 @@ GameObject:
   - component: {fileID: 1916526440}
   m_Layer: 0
   m_Name: Tree Left_2D
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

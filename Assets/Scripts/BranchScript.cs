@@ -12,6 +12,14 @@ public class BranchScript : MonoBehaviour
     public float xScale;
     public Vector2 maxScale;
 
+    private bool _selected;
+
+    public bool Selected
+    {
+        get { return _selected; }
+        set { _selected = value; }
+    }
+
 	private void Start() 
     {
         _spawner = GameObject.Find("Branch Spawner").GetComponent<BranchSpawner>();
@@ -30,7 +38,7 @@ public class BranchScript : MonoBehaviour
 	
 	private void Update() 
     {
-        if (_transform.localScale.x < maxScale.x && _spawner.HasSap) 
+        if (_transform.localScale.x < maxScale.x && _spawner.HasSap && this.Selected) 
         {
             if (treeLocation == BranchSpawner.Direction.Left) 
             {
@@ -46,7 +54,7 @@ public class BranchScript : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0)) 
         {
-            Destroy(this);
+            this.Selected = false;
         }
 	}
 }

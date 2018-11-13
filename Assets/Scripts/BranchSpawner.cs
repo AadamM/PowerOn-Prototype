@@ -10,7 +10,7 @@ public class BranchSpawner : MonoBehaviour
 
     public float maxSap;
     public Camera mainCam;
-    public GameObject branch;
+    public GameObject branchObj;
     public enum Direction { Left, Right };
 
     public bool HasSap 
@@ -38,47 +38,61 @@ public class BranchSpawner : MonoBehaviour
     // Update is called once per frame
     private void Update() 
     {
-        GrowBranchesOnClick();
+        HandleMouseClicks();
     }
 
-    private void GrowBranchesOnClick() 
+    private void HandleMouseClicks() 
     {
         if (Input.GetMouseButtonDown(0) && this.HasSap) 
         {
-            RaycastHit2D mouseRayTarget = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            var mouseRayTarget = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            // Used code from this forum:
-            // https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
-            if (mouseRayTarget == true) 
+            if (mouseRayTarget.collider != null)
             {
-                float branchSpawnOffset = 0f;
-
-                if (mouseRayTarget.point.x < 0) 
+                if (mouseRayTarget.collider.tag == "Tree")
                 {
-                    branchSpawnOffset = -7.5f;
+                    var spawnLocation = CalculateBranchSpawnLocation(mouseRayTarget);
+                    SpawnBranch(spawnLocation);
                 }
-                else 
+                else if (mouseRayTarget.collider.tag == "Branch")
                 {
-                    branchSpawnOffset = 7.5f;
+                    Debug.Log("Clicked on a branch!");
                 }
-
-                Vector2 branchSpawnLocation = new Vector2(branchSpawnOffset, mouseRayTarget.point.y);
-                GameObject currentBranch = Instantiate(branch, branchSpawnLocation, Quaternion.identity);
-
-                BranchScript currentBranchScript = currentBranch.GetComponent<BranchScript>();
-
-                if (currentBranchScript != null) 
-                {
-                    if (mouseRayTarget.collider.transform.position.x <= 0f) 
-                    {
-                        currentBranchScript.treeLocation = Direction.Left;
-                    }
-                    else 
-                    {
-                        currentBranchScript.treeLocation = Direction.Right;
-                    }
-                }
-            }
+            }           
         }
+    }
+
+    private Vector2 CalculateBranchSpawnLocation(RaycastHit2D mouseRayTarget)
+    {
+        float horizontalSpawnPoint = 0f;
+        float verticalSpawnPoint = mouseRayTarget.point.y;
+
+        if (mouseRayTarget.point.x < 0)
+        {
+            horizontalSpawnPoint = -7.5f;
+        }
+        else
+        {
+            horizontalSpawnPoint = 7.5f;
+        }
+
+        return new Vector2(horizontalSpawnPoint, verticalSpawnPoint);
+    }
+
+    private void SpawnBranch(Vector2 branchSpawnLocation)
+    {
+        GameObject branch = Instantiate(branchObj, branchSpawnLocation, Quaternion.identity);
+
+        BranchScript branchScript = branch.GetComponent<BranchScript>();
+
+        if (branchSpawnLocation.x <= 0f)
+        {
+            branchScript.treeLocation = Direction.Left;
+        }
+        else 
+        {
+            branchScript.treeLocation = Direction.Right;
+        }
+        branchScript.Selected = true;
     }
 }
