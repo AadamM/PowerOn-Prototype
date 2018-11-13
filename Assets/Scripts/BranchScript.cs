@@ -12,12 +12,12 @@ public class BranchScript : MonoBehaviour
     public float xScale;
     public Vector2 maxScale;
 
-    private bool _selected;
+    private bool _isGrowing;
 
-    public bool Selected
+    public bool IsGrowing
     {
-        get { return _selected; }
-        set { _selected = value; }
+        get { return _isGrowing; }
+        set { _isGrowing = value; }
     }
 
 	private void Start() 
@@ -38,7 +38,7 @@ public class BranchScript : MonoBehaviour
 	
 	private void Update() 
     {
-        if (_transform.localScale.x < maxScale.x && _spawner.HasSap && this.Selected) 
+        if (_transform.localScale.x < maxScale.x && _spawner.HasSap && this.IsGrowing) 
         {
             if (treeLocation == BranchSpawner.Direction.Left) 
             {
@@ -54,7 +54,7 @@ public class BranchScript : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0)) 
         {
-            this.Selected = false;
+            this.IsGrowing = false;
         }
 	}
 }

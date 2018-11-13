@@ -57,7 +57,7 @@ public class BranchSpawner : MonoBehaviour
                 else if (mouseRayTarget.collider.tag == "Branch")
                 {
                     var branchScript = mouseRayTarget.collider.GetComponent<BranchScript>();
-                    branchScript.Selected = true;
+                    branchScript.IsGrowing = true;
                 }
             }           
         }
