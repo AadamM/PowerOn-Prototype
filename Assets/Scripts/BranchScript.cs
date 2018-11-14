@@ -31,7 +31,7 @@ public class BranchScript : MonoBehaviour
         _transform.localScale = new Vector2(xScale, 0.75f);
         _collider = GetComponent<BoxCollider2D>();
 
-        // if the branch is on the right tree, flip its sprite and collider
+        // If the branch is on the right tree, flip its sprite and collider.
         if (_transform.position.x > 0f)
         {
             GetComponent<SpriteRenderer>().flipX = true;
