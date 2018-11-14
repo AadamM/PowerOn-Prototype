@@ -82,7 +82,7 @@ MonoBehaviour:
   treeLocation: 0
   speed: 0.031
   xScale: 0.1
-  maxScale: {x: 6, y: 0}
+  maxScale: {x: 2, y: 0}
 --- !u!212 &212164600928140576
 SpriteRenderer:
   m_ObjectHideFlags: 1

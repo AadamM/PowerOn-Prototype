@@ -62,7 +62,6 @@ public class BranchSpawner : MonoBehaviour
                 }
                 else if (mouseRayTarget.collider.tag == "Branch")
                 {
-                    Debug.Log("In branch click");
                     GrowExistingBranch(mouseRayTarget);
                 }
             }           
