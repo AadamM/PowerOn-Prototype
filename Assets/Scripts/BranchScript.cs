@@ -8,7 +8,6 @@ public class BranchScript : MonoBehaviour
     private ForestController _controller;
     private BoxCollider2D _collider;
 
-    public ForestController.Direction treeLocation;
     public float speed;
     public float xScale;
     public Vector2 maxScale;
@@ -32,11 +31,14 @@ public class BranchScript : MonoBehaviour
         _transform.localScale = new Vector2(xScale, 0.75f);
         _collider = GetComponent<BoxCollider2D>();
 
-        if (treeLocation == ForestController.Direction.Right) 
+        // if the branch is on the right tree, flip its sprite and collider
+        if (_transform.position.x > 0f)
         {
             GetComponent<SpriteRenderer>().flipX = true;
             _collider.offset = new Vector2(-_collider.offset.x, _collider.offset.y);
         }
+
+        this.IsGrowing = true;
 	}
 	
 	private void Update() 

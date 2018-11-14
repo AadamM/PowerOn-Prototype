@@ -12,7 +12,6 @@ public class ForestController : MonoBehaviour
     public float spawnLocationOffset;
     public Camera mainCam;
     public GameObject branchObj;
-    public enum Direction { Left, Right };
 
     #region Public Properties
 
@@ -95,19 +94,7 @@ public class ForestController : MonoBehaviour
 
     private void SpawnBranch(Vector2 branchSpawnLocation)
     {
-        GameObject branch = Instantiate(branchObj, branchSpawnLocation, Quaternion.identity);
-
-        BranchScript branchScript = branch.GetComponent<BranchScript>();
-
-        if (branchSpawnLocation.x <= 0f)
-        {
-            branchScript.treeLocation = Direction.Left;
-        }
-        else 
-        {
-            branchScript.treeLocation = Direction.Right;
-        }
-        branchScript.IsGrowing = true;
+        Instantiate(branchObj, branchSpawnLocation, Quaternion.identity);
     }
 
     #endregion Growing New Branches
