@@ -6,11 +6,11 @@ public class SapScript : MonoBehaviour
 {
     public float sapRefillPercentage;
 
-    private BranchSpawner _spawner;
+    private ForestController _controller;
 
     private void Start() 
     {
-        _spawner = GameObject.Find("Branch Spawner").GetComponent<BranchSpawner>();
+        _controller = GameObject.Find("Forest Controller").GetComponent<ForestController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) 
@@ -21,10 +21,10 @@ public class SapScript : MonoBehaviour
 
     private void RefillSap() 
     {
-        _spawner.Sap += (_spawner.maxSap * sapRefillPercentage);
-        if (_spawner.Sap > _spawner.maxSap) 
+        _controller.Sap += (_controller.maxSap * sapRefillPercentage);
+        if (_controller.Sap > _controller.maxSap) 
         {
-            _spawner.Sap = _spawner.maxSap;
+            _controller.Sap = _controller.maxSap;
         }
     }
 }

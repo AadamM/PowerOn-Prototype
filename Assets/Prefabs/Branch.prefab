@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 251617364464764756}
   m_Layer: 0
   m_Name: Branch
-  m_TagString: Untagged
+  m_TagString: Branch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.354128, y: 0.600544}
+  m_Size: {x: 4.354128, y: 1.09}
   m_EdgeRadius: 0
 --- !u!114 &114994177568872846
 MonoBehaviour:
@@ -82,7 +82,7 @@ MonoBehaviour:
   treeLocation: 0
   speed: 0.031
   xScale: 0.1
-  maxScale: {x: 6, y: 0}
+  maxScale: {x: 2, y: 0}
 --- !u!212 &212164600928140576
 SpriteRenderer:
   m_ObjectHideFlags: 1
