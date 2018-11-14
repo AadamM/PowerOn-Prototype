@@ -9,7 +9,7 @@ public class BranchSpawner : MonoBehaviour
     private float _sap;
 
     public float maxSap;
-    public float branchSpawnLocationMagnitude = 9f;
+    public float spawnLocationOffset;
     public Camera mainCam;
     public GameObject branch;
     public enum Direction { Left, Right };
@@ -56,11 +56,11 @@ public class BranchSpawner : MonoBehaviour
 
                 if (mouseRayTarget.point.x < 0) 
                 {
-                    branchSpawnOffset = -branchSpawnLocationMagnitude;
+                    branchSpawnOffset = -spawnLocationOffset;
                 }
                 else 
                 {
-                    branchSpawnOffset = branchSpawnLocationMagnitude;
+                    branchSpawnOffset = spawnLocationOffset;
                 }
 
                 Vector2 branchSpawnLocation = new Vector2(branchSpawnOffset, mouseRayTarget.point.y);

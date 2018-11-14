@@ -892,7 +892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSap: 300
-  branchSpawnLocationMagnitude: 8.5
+  spawnLocationOffset: 9
   mainCam: {fileID: 534669904}
   branch: {fileID: 1108830822210580, guid: f6c2895167782554bb6ef68a1f149334, type: 2}
 --- !u!4 &1619868035

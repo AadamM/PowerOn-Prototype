@@ -6,7 +6,7 @@ public class BranchScript : MonoBehaviour
 {
     private Transform _transform;
     private BranchSpawner _spawner;
-    private float _boxColliderXScale;
+    private BoxCollider2D _collider;
 
     public BranchSpawner.Direction treeLocation;
     public float speed;
@@ -18,12 +18,12 @@ public class BranchScript : MonoBehaviour
         _spawner = GameObject.Find("Branch Spawner").GetComponent<BranchSpawner>();
         _transform = GetComponentInChildren<Transform>();
         _transform.localScale = new Vector2(xScale, 0.75f);
-        _boxColliderXScale = GetComponent<BoxCollider2D>().offset.x;
+        _collider = GetComponent<BoxCollider2D>();
 
         if (treeLocation == BranchSpawner.Direction.Right) 
         {
             GetComponent<SpriteRenderer>().flipX = true;
-            GetComponent<BoxCollider2D>().offset = new Vector2(-_boxColliderXScale, GetComponent<BoxCollider2D>().offset.y);
+            _collider.offset = new Vector2(-_collider.offset.x, _collider.offset.y);
         }
 	}
 	
