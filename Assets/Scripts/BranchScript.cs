@@ -43,12 +43,12 @@ public class BranchScript : MonoBehaviour
 	
 	private void Update() 
     {
-        GrowBranchUntilMaxScale();
+        Grow();
 	}
 
     #region Private Helper Functions
 
-    private void GrowBranchUntilMaxScale()
+    private void Grow()
     {
         if (_transform.localScale.x < maxScale.x && _controller.HasSap && this.IsGrowing)
         {
