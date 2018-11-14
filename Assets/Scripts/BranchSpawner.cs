@@ -9,6 +9,7 @@ public class BranchSpawner : MonoBehaviour
     private float _sap;
 
     public float maxSap;
+    public float spawnLocationOffset;
     public Camera mainCam;
     public GameObject branchObj;
     public enum Direction { Left, Right };
@@ -39,7 +40,7 @@ public class BranchSpawner : MonoBehaviour
         this.Sap = maxSap;
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     private void Update() 
     {
         HandleLeftClicks();
@@ -61,6 +62,7 @@ public class BranchSpawner : MonoBehaviour
                 }
                 else if (mouseRayTarget.collider.tag == "Branch")
                 {
+                    Debug.Log("In branch click");
                     GrowExistingBranch(mouseRayTarget);
                 }
             }           
@@ -82,11 +84,11 @@ public class BranchSpawner : MonoBehaviour
 
         if (mouseRayTarget.point.x < 0)
         {
-            horizontalSpawnPoint = -7.5f;
+            horizontalSpawnPoint -= spawnLocationOffset;
         }
         else
         {
-            horizontalSpawnPoint = 7.5f;
+            horizontalSpawnPoint += spawnLocationOffset;
         }
 
         return new Vector2(horizontalSpawnPoint, verticalSpawnPoint);
