@@ -9,6 +9,7 @@ public class BranchSpawner : MonoBehaviour
     private float _sap;
 
     public float maxSap;
+    public float spawnLocationOffset;
     public Camera mainCam;
     public GameObject branch;
     public enum Direction { Left, Right };
@@ -35,7 +36,7 @@ public class BranchSpawner : MonoBehaviour
         this.Sap = maxSap;
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     private void Update() 
     {
         GrowBranchesOnClick();
@@ -45,21 +46,21 @@ public class BranchSpawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && this.HasSap) 
         {
+            // I used used code similar to mrsquare's response to troubleshoot 2D raycasts:
+            // https://forum.unity.com/threads/unity-2d-raycast-from-mouse-to-screen.211708/
             RaycastHit2D mouseRayTarget = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            // Used code from this forum:
-            // https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
             if (mouseRayTarget == true) 
             {
                 float branchSpawnOffset = 0f;
 
                 if (mouseRayTarget.point.x < 0) 
                 {
-                    branchSpawnOffset = -7.5f;
+                    branchSpawnOffset = -spawnLocationOffset;
                 }
                 else 
                 {
-                    branchSpawnOffset = 7.5f;
+                    branchSpawnOffset = spawnLocationOffset;
                 }
 
                 Vector2 branchSpawnLocation = new Vector2(branchSpawnOffset, mouseRayTarget.point.y);
