@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BranchSpawner : MonoBehaviour 
+public class ForestController : MonoBehaviour 
 {
     private Slider _sapUI;
     private float _sap;

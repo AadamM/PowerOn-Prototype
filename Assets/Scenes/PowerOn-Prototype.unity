@@ -874,7 +874,7 @@ GameObject:
   - component: {fileID: 1619868035}
   - component: {fileID: 1619868034}
   m_Layer: 0
-  m_Name: Branch Spawner
+  m_Name: Forest Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
