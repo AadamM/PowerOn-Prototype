@@ -22,8 +22,6 @@ public class BranchScript : MonoBehaviour
 
         if (treeLocation == BranchSpawner.Direction.Right) 
         {
-            //GetComponent<SpriteRenderer>().sprite.pivot.Set(1.0f, 0.5f);
-            //_transform.Translate(new Vector2(-xScale/2, 0f));
             GetComponent<SpriteRenderer>().flipX = true;
             GetComponent<BoxCollider2D>().offset = new Vector2(-_boxColliderXScale, GetComponent<BoxCollider2D>().offset.y);
         }
