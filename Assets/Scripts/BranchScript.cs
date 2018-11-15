@@ -5,39 +5,63 @@ using UnityEngine;
 public class BranchScript : MonoBehaviour 
 {
     private Transform _transform;
-    private BranchSpawner _spawner;
-    private float _boxColliderXScale;
+    private ForestController _controller;
+    private BoxCollider2D _collider;
 
-    public BranchSpawner.Direction treeLocation;
     public float speed;
     public float xScale;
     public Vector2 maxScale;
 
-	private void Start() 
+    private bool _isGrowing;
+
+    #region Public Properties
+
+    public bool IsGrowing
     {
-        _spawner = GameObject.Find("Branch Spawner").GetComponent<BranchSpawner>();
+        get { return _isGrowing; }
+        set { _isGrowing = value; }
+    }
+
+    #endregion Public Properties
+
+    private void Start() 
+    {
+        _controller = GameObject.Find("Forest Controller").GetComponent<ForestController>();
         _transform = GetComponentInChildren<Transform>();
         _transform.localScale = new Vector2(xScale, 0.75f);
-        _boxColliderXScale = GetComponent<BoxCollider2D>().offset.x;
+        _collider = GetComponent<BoxCollider2D>();
 
-        if (treeLocation == BranchSpawner.Direction.Right) 
+        // If the branch is on the right tree, flip its sprite and collider.
+        if (_transform.position.x > 0f)
         {
             GetComponent<SpriteRenderer>().flipX = true;
-            GetComponent<BoxCollider2D>().offset = new Vector2(-_boxColliderXScale, GetComponent<BoxCollider2D>().offset.y);
+            _collider.offset = new Vector2(-_collider.offset.x, _collider.offset.y);
         }
+
+        this.IsGrowing = true;
 	}
 	
 	private void Update() 
     {
-        if (_transform.localScale.x < maxScale.x && _spawner.HasSap) 
+        Grow();
+	}
+
+    #region Private Helper Functions
+
+    private void Grow()
+    {
+        if (_transform.localScale.x < maxScale.x && _controller.HasSap && this.IsGrowing)
         {
             _transform.localScale += new Vector3(speed, 0f, 0f);
-            _spawner.Sap -= 1;
+            _controller.Sap -= 1;
         }
 
-        if (Input.GetMouseButtonUp(0)) 
+        if (Input.GetMouseButtonUp(0))
         {
-            Destroy(this);
+            this.IsGrowing = false;
         }
-	}
+    }
+
+    #endregion
+
 }
