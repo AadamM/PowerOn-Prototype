@@ -89,11 +89,11 @@ public class ForestController : MonoBehaviour
 
     private void HandleLeftClicks() 
     {
-        if (Input.GetMouseButtonDown(0) && HasSap) 
+        if (Input.GetMouseButtonDown(0)) 
         {
             var mouseRayTarget = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            if (SelectedAction == Action.Grow)
+            if (SelectedAction == Action.Grow && HasSap)
             {
                 if (mouseRayTarget.collider != null)
                 {
