@@ -83,6 +83,7 @@ public class ForestController : MonoBehaviour
     {
         HandleLeftClicks();
         HandleScrolling();
+        HandleArrowKeyPresses();
     }
 
     #region Private Helper Functions
@@ -129,6 +130,18 @@ public class ForestController : MonoBehaviour
         if (ScrollingDown)
         {
             SelectedAction = SelectedAction.Previous(); ;
+        }
+    }
+
+    private void HandleArrowKeyPresses()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SelectedAction = SelectedAction.Next();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SelectedAction = SelectedAction.Previous();
         }
     }
 
