@@ -45,7 +45,7 @@ public class BranchScript : MonoBehaviour
             _collider.offset = new Vector2(-_collider.offset.x, _collider.offset.y);
         }
 
-        this.IsGrowing = true;
+        IsGrowing = true;
         _isFading = false;
         _storedSap = 0;
 	}
@@ -60,7 +60,7 @@ public class BranchScript : MonoBehaviour
 
     private void Grow()
     {
-        if (_transform.localScale.x < maxScale.x && _controller.HasSap && this.IsGrowing)
+        if (_transform.localScale.x < maxScale.x && _controller.HasSap && IsGrowing)
         {
             _transform.localScale += new Vector3(speed, 0f, 0f);
             _controller.Sap--;
@@ -69,7 +69,7 @@ public class BranchScript : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            this.IsGrowing = false;
+            IsGrowing = false;
         }
     }
 
