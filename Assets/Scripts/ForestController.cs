@@ -7,6 +7,9 @@ public class ForestController : MonoBehaviour
 {
     private Slider _sapUI;
     private float _sap;
+    private enum Action { Grow, Destroy };
+    private Action _selectedAction;
+    private Text _selectedActionUI;
 
     public float maxSap;
     public float spawnLocationOffset;
@@ -32,38 +35,100 @@ public class ForestController : MonoBehaviour
 
     #endregion Public Properties
 
+    #region Private Properties
+
+    private Action SelectedAction
+    {
+        get { return _selectedAction; }
+        set
+        {
+            _selectedAction = value;
+
+            switch (value)
+            {
+                case (Action.Grow):
+                    _selectedActionUI.text = "<=> Grow Branch <=>";
+                    break;
+                case (Action.Destroy):
+                    _selectedActionUI.text = "<=> Destroy Branch <=>";
+                    break;
+            }
+        }
+    }
+
+    private bool ScrollingUp
+    {
+        get { return Input.GetAxis("Mouse ScrollWheel") > 0f; }
+    }
+
+    private bool ScrollingDown
+    {
+        get { return Input.GetAxis("Mouse ScrollWheel") < 0f; }
+    }
+
+    #endregion Private Properties
+
     private void Start() 
     {
         _sapUI = GameObject.Find("Sap Bar").GetComponent<Slider>();
         _sapUI.maxValue = maxSap;
-        this.Sap = maxSap;
+        Sap = maxSap;
+
+        _selectedActionUI = GameObject.Find("Selected Action").GetComponent<Text>();
+        SelectedAction = Action.Grow;
     }
 
     // Update is called once per frame.
     private void Update() 
     {
         HandleLeftClicks();
+        HandleScrolling();
     }
 
     #region Private Helper Functions
 
     private void HandleLeftClicks() 
     {
-        if (Input.GetMouseButtonDown(0) && this.HasSap) 
+        if (Input.GetMouseButtonDown(0) && HasSap) 
         {
             var mouseRayTarget = Physics2D.Raycast(mainCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            if (mouseRayTarget.collider != null)
+            if (SelectedAction == Action.Grow)
             {
-                if (mouseRayTarget.collider.tag == "Tree")
+                if (mouseRayTarget.collider != null)
                 {
-                    GrowNewBranch(mouseRayTarget);
+                    if (mouseRayTarget.collider.tag == "Tree")
+                    {
+                        GrowNewBranch(mouseRayTarget);
+                    }
+                    else if (mouseRayTarget.collider.tag == "Branch")
+                    {
+                        GrowExistingBranch(mouseRayTarget);
+                    }
                 }
-                else if (mouseRayTarget.collider.tag == "Branch")
+            }
+            else if (SelectedAction == Action.Destroy)
+            {
+                if (mouseRayTarget.collider != null)
                 {
-                    GrowExistingBranch(mouseRayTarget);
+                    if (mouseRayTarget.collider.tag == "Branch")
+                    {
+                        DestroyBranchIfAbovePlayer(mouseRayTarget.collider.gameObject);
+                    }
                 }
-            }           
+            }    
+        }
+    }
+
+    private void HandleScrolling()
+    {
+        if (ScrollingUp)
+        {
+            SelectedAction = SelectedAction.Next();
+        }
+        if (ScrollingDown)
+        {
+            SelectedAction = SelectedAction.Previous(); ;
         }
     }
 
@@ -108,6 +173,20 @@ public class ForestController : MonoBehaviour
     }
 
     #endregion Growing Existing Branches
+
+    #region Destroying Branches
+
+    private void DestroyBranchIfAbovePlayer(GameObject branch)
+    {
+        var playerPosition = GameObject.Find("Player").GetComponent<Transform>().position;
+        if (branch.transform.position.y > playerPosition.y)
+        {
+            var branchScript = branch.GetComponent<BranchScript>();
+            branchScript.FadeAndDestroy();
+        }
+    }
+
+    #endregion Destroying Branches
 
     #endregion Private Helper Functions
 }
