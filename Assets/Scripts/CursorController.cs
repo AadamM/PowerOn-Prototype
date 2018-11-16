@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class CursorController : MonoBehaviour
@@ -7,10 +6,11 @@ public class CursorController : MonoBehaviour
     public Texture2D normalCursor;
     public Texture2D handCursor;
     public Texture2D deleteCursor;
+    public Texture2D invalidCursor;
 
     private ForestController _forest;
     private RaycastHit2D _mouseLocation;
-    private enum CursorOption { Default, Hand, Delete, Undefined };
+    private enum CursorOption { Default, Hand, Delete, Invalid, Undefined };
     private CursorOption _cursor;
 
     #region Private Properties
@@ -47,29 +47,116 @@ public class CursorController : MonoBehaviour
     {
         _forest = GameObject.Find("Forest Controller").GetComponent<ForestController>();
         _cursor = CursorOption.Undefined;
+        SetColor(ref invalidCursor, Color.red);
 	}
 	
 	private void Update()
     {
-		_mouseLocation = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        _mouseLocation = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         UpdateCursorTexture();
     }
 
     #region Private Helper Functions
 
+    private void SetColor(ref Texture2D texture, Color color)
+    {
+        for (int i=0; i<texture.width; i++)
+        {
+            for (int j=0; j<texture.height; j++)
+            {
+                if (texture.GetPixel(i, j).gamma != Color.clear)
+                {
+                    texture.SetPixel(i, j, color);
+                }
+            }
+        }
+        texture.Apply();
+    }
+
     private void UpdateCursorTexture()
     {
-        if ((HoveringTree || HoveringBranch) && _forest.SelectedAction == ForestController.Action.Grow)
+        if (AttemptingInvalidAction())
         {
-            SetCursorToHand();
-        }
-        else if (HoveringBranch && _forest.SelectedAction == ForestController.Action.Destroy)
-        {
-            SetCursorToDelete();
+            SetCursorToInvalid();
         }
         else
         {
-            SetCursorToDefault();
+            if ((HoveringTree || HoveringBranch) && _forest.SelectedAction == ForestController.Action.Grow)
+            {
+                SetCursorToHand();
+            }
+            else if (HoveringBranch && _forest.SelectedAction == ForestController.Action.Destroy)
+            {
+                SetCursorToDelete();
+            }
+            else
+            {
+                SetCursorToDefault();
+            }
+        }
+    }
+
+
+    #region UpdateCursorTexture helper functions
+
+    private bool AttemptingInvalidAction()
+    {
+        if (HoveringBranch)
+        {
+            var branch = _mouseLocation.collider.gameObject;
+            if (_forest.SelectedAction == ForestController.Action.Grow)
+            {
+                var branchScript = branch.GetComponent<BranchScript>();
+                if (branchScript.IsMaxLength)
+                {
+                    return true;
+                }
+                if (!_forest.HasSap)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                // if we are here, the player is hovering a branch in Destroy mode
+                return BranchIsBelowPlayer(branch);
+            }
+        }
+        else if (HoveringTree)
+        { 
+            if (!_forest.HasSap)
+            {
+                return true;
+            }
+            if (_forest.SelectedAction == ForestController.Action.Destroy)
+            {
+                return true;
+            }
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool BranchIsBelowPlayer(GameObject branch)
+    {
+        var playerHeight = GameObject.Find("Player").transform.position.y;
+
+        return branch.transform.position.y < playerHeight;
+    }
+
+    private void SetCursorToInvalid()
+    {
+        if (_cursor != CursorOption.Invalid)
+        {
+            var width = invalidCursor.width;
+            var height = invalidCursor.height;
+            var hotspot = new Vector2(width / 2, height / 2);
+            Cursor.SetCursor(invalidCursor, hotspot, CursorMode.Auto);
+            _cursor = CursorOption.Invalid;
         }
     }
 
@@ -108,6 +195,8 @@ public class CursorController : MonoBehaviour
             _cursor = CursorOption.Default;
         }
     }
+
+    #endregion UpdateCursorTexture helper functions
 
     #endregion Private Helper Functions
 }
