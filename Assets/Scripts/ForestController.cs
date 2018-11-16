@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class ForestController : MonoBehaviour 
 {
-    private Slider _sapUI;
-    private float _sap;
-    private enum Action { Grow, Destroy };
-    private Action _selectedAction;
-    private Text _selectedActionUI;
-
     public float maxSap;
     public float spawnLocationOffset;
     public Camera mainCam;
     public GameObject branchObj;
+    public enum Action { Grow, Destroy };
+
+    private Slider _sapUI;
+    private float _sap;
+    private Action _selectedAction;
+    private Text _selectedActionUI;
 
     #region Public Properties
 
@@ -33,11 +33,7 @@ public class ForestController : MonoBehaviour
         }
     }
 
-    #endregion Public Properties
-
-    #region Private Properties
-
-    private Action SelectedAction
+    public Action SelectedAction
     {
         get { return _selectedAction; }
         set
@@ -55,6 +51,10 @@ public class ForestController : MonoBehaviour
             }
         }
     }
+
+    #endregion Public Properties
+
+    #region Private Properties
 
     private bool ScrollingUp
     {

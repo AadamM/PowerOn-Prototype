@@ -24,6 +24,11 @@ public class BranchScript : MonoBehaviour
         set { _isGrowing = value; }
     }
 
+    public bool IsMaxLength
+    {
+        get { return _transform.localScale.x >= maxScale.x; }
+    }
+
     #endregion Public Properties
 
     public void FadeAndDestroy()
@@ -60,7 +65,7 @@ public class BranchScript : MonoBehaviour
 
     private void Grow()
     {
-        if (_transform.localScale.x < maxScale.x && _controller.HasSap && IsGrowing)
+        if (!IsMaxLength && _controller.HasSap && IsGrowing)
         {
             _transform.localScale += new Vector3(speed, 0f, 0f);
             _controller.Sap--;
