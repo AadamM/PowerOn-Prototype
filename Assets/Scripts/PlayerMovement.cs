@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
     public float speed;
     public float jumpForce;
+    public Rigidbody2D playerRigidbody;
 
-    private Rigidbody2D _rigidbody;
     private Transform _transform;
 
     private float HorizontalMovement
@@ -21,18 +22,16 @@ public class PlayerMovement : MonoBehaviour {
 
     private bool IsGrounded
     {
-        get { return _rigidbody.velocity.y == 0; }
+        get { return playerRigidbody.velocity.y == 0; }
     }
 
-    // Use this for initialization
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.freezeRotation = true;
+        playerRigidbody = GetComponent<Rigidbody2D>();
+        playerRigidbody.freezeRotation = true;
         _transform = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         HandleHorizontalMovement();
@@ -41,9 +40,9 @@ public class PlayerMovement : MonoBehaviour {
 
     private void HandleHorizontalMovement()
     {
-        var newVelocity = _rigidbody.velocity;
+        var newVelocity = playerRigidbody.velocity;
         newVelocity.x = HorizontalMovement * speed;
-        _rigidbody.velocity = newVelocity;
+        playerRigidbody.velocity = newVelocity;
     }
 
     private void HandleJumping()
@@ -51,7 +50,7 @@ public class PlayerMovement : MonoBehaviour {
         if (JumpButtonPressed && IsGrounded)
         {
             var up = _transform.TransformDirection(Vector2.up);
-            _rigidbody.AddForce(up * jumpForce, ForceMode2D.Impulse);
+            playerRigidbody.AddForce(up * jumpForce, ForceMode2D.Impulse);
         }
     }
 }
