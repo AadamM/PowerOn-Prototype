@@ -405,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalCursor: {fileID: 2800000, guid: 6e7902a720da0c14aaf327e5d8bb1435, type: 3}
   handCursor: {fileID: 2800000, guid: b9a97095f6a3c294a900723e56a3c35b, type: 3}
-  deleteCursor: {fileID: 2800000, guid: 447827df5ffc7064eb200688426afb84, type: 3}
+  deleteCursor: {fileID: 2800000, guid: 2ac041d938677bd42b89cf2e8c83bcd0, type: 3}
   invalidCursor: {fileID: 2800000, guid: e85cc4012f5273242b82f03ab6d84371, type: 3}
 --- !u!1 &534669902
 GameObject:
