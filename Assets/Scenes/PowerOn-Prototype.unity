@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fced6438ef41dc54da694d1a408e7b4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ratio: 0.25
   player: {fileID: 1071585104}
 --- !u!1 &873025773
 GameObject:
@@ -951,7 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beff9ed141579184e93a121fb83213e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSap: 500
+  maxSap: 350
   spawnLocationOffset: 9
   mainCam: {fileID: 534669904}
   branchObj: {fileID: 1108830822210580, guid: f6c2895167782554bb6ef68a1f149334, type: 2}

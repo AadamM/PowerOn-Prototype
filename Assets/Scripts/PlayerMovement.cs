@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
     public float speed;
     public float jumpForce;
     public Rigidbody2D playerRigidbody;
@@ -24,7 +25,6 @@ public class PlayerMovement : MonoBehaviour {
         get { return playerRigidbody.velocity.y == 0; }
     }
 
-    // Use this for initialization
     private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour {
         _transform = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         HandleHorizontalMovement();
