@@ -9,10 +9,12 @@ public class BranchScript : MonoBehaviour
     private BoxCollider2D _collider;
     private bool _isFading;
     private float _storedSap;
+    private Vector3 _staringScale;
 
     public float speed;
     public float xScale;
     public Vector2 maxScale;
+    public bool isStatic = false;
 
     private bool _isGrowing;
 
@@ -33,21 +35,30 @@ public class BranchScript : MonoBehaviour
 
     public void FadeAndDestroy()
     {
-        _isFading = true;
+        if (!isStatic)
+        {
+            _isFading = true;
+        }
     }
 
     private void Start() 
     {
         _controller = GameObject.Find("Forest Controller").GetComponent<ForestController>();
         _transform = GetComponentInChildren<Transform>();
+        if (isStatic)
+        {
+            maxScale = _transform.localScale;
+            xScale = _transform.localScale.x/4f;
+        }
         _transform.localScale = new Vector2(xScale, 0.75f);
         _collider = GetComponent<BoxCollider2D>();
 
         // If the branch is on the right tree, flip its sprite and collider.
-        if (_transform.position.x > 0f)
+        if (_transform.position.x > 0f && !isStatic)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
-            _collider.offset = new Vector2(-_collider.offset.x, _collider.offset.y);
+                GetComponent<SpriteRenderer>().flipX = true;
+                _collider.offset = new Vector2(-_collider.offset.x, _collider.offset.y);
+            
         }
 
         IsGrowing = true;
@@ -57,7 +68,10 @@ public class BranchScript : MonoBehaviour
 	
 	private void Update() 
     {
-        Grow();
+        //if (!isStatic)
+        //{
+            Grow();
+        //}
         HandleFading();
 	}
 
@@ -67,8 +81,13 @@ public class BranchScript : MonoBehaviour
     {
         if (!IsMaxLength && _controller.HasSap && IsGrowing)
         {
+
             _transform.localScale += new Vector3(speed, 0f, 0f);
-            _controller.Sap--;
+            
+            if (!isStatic)
+            {
+                _controller.Sap--;
+            }
             _storedSap++;
         }
 
