@@ -47,7 +47,6 @@ public class CursorController : MonoBehaviour
     {
         _forest = GameObject.Find("Forest Controller").GetComponent<ForestController>();
         _cursor = CursorOption.Undefined;
-        SetColor(ref invalidCursor, Color.red);
 	}
 	
 	private void Update()
@@ -57,21 +56,6 @@ public class CursorController : MonoBehaviour
     }
 
     #region Private Helper Functions
-
-    private void SetColor(ref Texture2D texture, Color color)
-    {
-        for (int i=0; i<texture.width; i++)
-        {
-            for (int j=0; j<texture.height; j++)
-            {
-                if (texture.GetPixel(i, j).gamma != Color.clear)
-                {
-                    texture.SetPixel(i, j, color);
-                }
-            }
-        }
-        texture.Apply();
-    }
 
     private void UpdateCursorTexture()
     {
