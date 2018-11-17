@@ -9,10 +9,13 @@ public class BranchScript : MonoBehaviour
     private BoxCollider2D _collider;
     private bool _isFading;
     private float _storedSap;
+    private bool _finishedInitialGrowing;
 
     public float speed;
     public float xScale;
     public Vector2 maxScale;
+    public bool isPrePlaced;
+    public Vector2 preGrownLength;
 
     private bool _isGrowing;
 
@@ -22,6 +25,11 @@ public class BranchScript : MonoBehaviour
     {
         get { return _isGrowing; }
         set { _isGrowing = value; }
+    }
+
+    public bool IsPreGrownLength
+    {
+        get { return _transform.localScale.x >= preGrownLength.x; }
     }
 
     public bool IsMaxLength
@@ -53,6 +61,7 @@ public class BranchScript : MonoBehaviour
         IsGrowing = true;
         _isFading = false;
         _storedSap = 0;
+        _finishedInitialGrowing = false;
 	}
 	
 	private void Update() 
@@ -65,11 +74,37 @@ public class BranchScript : MonoBehaviour
 
     private void Grow()
     {
-        if (!IsMaxLength && _controller.HasSap && IsGrowing)
+        if (!isPrePlaced && !IsMaxLength && _controller.HasSap && IsGrowing)
         {
             _transform.localScale += new Vector3(speed, 0f, 0f);
             _controller.Sap--;
             _storedSap++;
+        }
+        else
+        {
+            if (!_finishedInitialGrowing)
+            {
+                if (!IsPreGrownLength)
+                {
+                    _transform.localScale += new Vector3(speed, 0f, 0f);
+                    _controller.Sap--;
+                    _storedSap++;
+                }
+                else
+                {
+                    _finishedInitialGrowing = true;
+                    IsGrowing = false;
+                }
+            }
+            else
+            {
+                if (!IsMaxLength && IsGrowing)
+                {
+                    _transform.localScale += new Vector3(speed, 0f, 0f);
+                    _controller.Sap--;
+                    _storedSap++;
+                }
+            }
         }
 
         if (Input.GetMouseButtonUp(0))
