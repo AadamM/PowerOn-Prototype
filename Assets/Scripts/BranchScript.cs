@@ -87,7 +87,6 @@ public class BranchScript : MonoBehaviour
                 if (!IsPreGrownLength)
                 {
                     _transform.localScale += new Vector3(speed, 0f, 0f);
-                    _controller.Sap--;
                     _storedSap++;
                 }
                 else
